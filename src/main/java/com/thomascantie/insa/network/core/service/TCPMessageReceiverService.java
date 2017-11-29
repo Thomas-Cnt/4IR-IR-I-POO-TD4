@@ -1,9 +1,7 @@
 package com.thomascantie.insa.network.core.service;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+
 import java.net.ServerSocket;
-import java.net.Socket;
 
 public class TCPMessageReceiverService implements MessageReceiverService {
 
@@ -12,13 +10,8 @@ public class TCPMessageReceiverService implements MessageReceiverService {
 
         ServerSocket server = new ServerSocket(port);
 
-        Socket socket = server.accept();
-
-        InputStreamReader stream = new InputStreamReader(socket.getInputStream());
-
-        BufferedReader reader = new BufferedReader(stream);
-
-        incomingMessageListener.onNewIncomingMessage(reader.readLine());
+        Thread accept = new Thread(new AcceptClients(server, incomingMessageListener));
+        accept.start();
 
     }
 
