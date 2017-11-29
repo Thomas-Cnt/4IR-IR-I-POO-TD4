@@ -25,7 +25,7 @@ public class AcceptClients implements Runnable {
 		try {
 			while(true){
 
-				socket = this.serverSocket.accept();
+				socket = this.serverSocket.accept(); // block current thread until client asks for a connection
 
 				BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 

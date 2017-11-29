@@ -13,7 +13,7 @@ public class UDPMessageReceiverService implements MessageReceiverService {
 			byte[] buffer = new byte[8196];
 
 			DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-			socket.receive(packet);
+			socket.receive(packet); // block current thread until a datagram is received
 
 			incomingMessageListener.onNewIncomingMessage(new String(buffer));
 		}
