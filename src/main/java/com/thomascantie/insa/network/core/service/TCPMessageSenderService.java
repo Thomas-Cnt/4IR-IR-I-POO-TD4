@@ -1,8 +1,23 @@
 package com.thomascantie.insa.network.core.service;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.*;
+
 public class TCPMessageSenderService implements MessageSenderService {
     @Override
     public void sendMessageOn(String ipAddress, int port, String message) throws Exception {
-        throw new UnsupportedOperationException();
+
+        Socket socket = new Socket();
+
+        socket.connect(new InetSocketAddress(ipAddress, port));
+
+        PrintWriter out = new PrintWriter(socket.getOutputStream());
+        out.println(message);
+        out.flush();
+
+        socket.close();
     }
+
 }
